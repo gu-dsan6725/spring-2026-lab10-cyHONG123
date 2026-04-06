@@ -1,0 +1,144 @@
+{
+  "total_cases": 5,
+  "errors": 0,
+  "overall_scores": {
+    "Latency": {
+      "average": 0.9,
+      "min": 0.5,
+      "max": 1.0,
+      "count": 5
+    },
+    "NoError": {
+      "average": 1.0,
+      "min": 1,
+      "max": 1,
+      "count": 5
+    },
+    "ResponseCompleteness": {
+      "average": 0.8,
+      "min": 0.0,
+      "max": 1.0,
+      "count": 5
+    },
+    "ScopeAwareness": {
+      "average": 0.8,
+      "min": 0,
+      "max": 1,
+      "count": 5
+    },
+    "ToolSelection": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 5
+    }
+  },
+  "per_category": {
+    "multi_tool": {
+      "Latency": {
+        "average": 0.5,
+        "count": 1
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ResponseCompleteness": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ScopeAwareness": {
+        "average": 0.0,
+        "count": 1
+      },
+      "ToolSelection": {
+        "average": 1.0,
+        "count": 1
+      }
+    },
+    "search": {
+      "Latency": {
+        "average": 1.0,
+        "count": 4
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 4
+      },
+      "ResponseCompleteness": {
+        "average": 0.75,
+        "count": 4
+      },
+      "ScopeAwareness": {
+        "average": 1.0,
+        "count": 4
+      },
+      "ToolSelection": {
+        "average": 1.0,
+        "count": 4
+      }
+    }
+  },
+  "per_case": [
+    {
+      "input": "I am on plane towards New York, when would i arrived at local time if there is 2 hour more flight?",
+      "category": "search",
+      "scores": {
+        "ToolSelection": 1.0,
+        "ResponseCompleteness": 1.0,
+        "Latency": 1.0,
+        "NoError": 1,
+        "ScopeAwareness": 1
+      },
+      "error": null
+    },
+    {
+      "input": "I want to call my friend right now, he is at Tokyo. Which clock is it at there?",
+      "category": "search",
+      "scores": {
+        "ToolSelection": 1.0,
+        "ResponseCompleteness": 1.0,
+        "Latency": 1.0,
+        "NoError": 1,
+        "ScopeAwareness": 1
+      },
+      "error": null
+    },
+    {
+      "input": "I have 1000 us dollar and i need to travel to japan, how many japan currency can i exchange with that?",
+      "category": "search",
+      "scores": {
+        "ToolSelection": 1.0,
+        "ResponseCompleteness": 1.0,
+        "Latency": 1.0,
+        "NoError": 1,
+        "ScopeAwareness": 1
+      },
+      "error": null
+    },
+    {
+      "input": "I need 10000 euro, how many us dollar do i need to prepare for exchange?",
+      "category": "search",
+      "scores": {
+        "ToolSelection": 1.0,
+        "ResponseCompleteness": 0.0,
+        "Latency": 1.0,
+        "NoError": 1,
+        "ScopeAwareness": 1
+      },
+      "error": null
+    },
+    {
+      "input": "I am planning a business trip from New York to Tokyo. How long is the flight route by driving to JFK first, what is the ",
+      "category": "multi_tool",
+      "scores": {
+        "ToolSelection": 1.0,
+        "ResponseCompleteness": 1.0,
+        "Latency": 0.5,
+        "NoError": 1,
+        "ScopeAwareness": 0
+      },
+      "error": null
+    }
+  ]
+}

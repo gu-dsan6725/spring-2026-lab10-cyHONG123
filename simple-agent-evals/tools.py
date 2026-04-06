@@ -18,6 +18,8 @@ import time
 import requests
 from ddgs import DDGS
 from strands.tools.decorator import tool
+import datetime
+import zoneinfo
 
 
 # Configure logging
@@ -282,3 +284,177 @@ def get_directions(
     except Exception as e:
         logger.error(f"[Tool] get_directions failed: {e}")
         return json.dumps({"error": str(e)})
+
+@tool
+def get_time(
+    city_name: str
+) -> str:
+    """
+    This is a local time getter which use to get the current time in any city.
+
+    Args:
+        city_name: 
+    Returns:
+        date_time of city in datetime format (strftime("%z"))
+    """
+
+    zones = zoneinfo.available_timezones()
+    try:
+        # This is a simple ai generated directory with city for search
+        CITY_TO_TZ = {
+        # 🇺🇸 United States
+        "new york": "America/New_York",
+        "washington dc": "America/New_York",
+        "boston": "America/New_York",
+        "philadelphia": "America/New_York",
+        "miami": "America/New_York",
+        "atlanta": "America/New_York",
+        "detroit": "America/Detroit",
+        "chicago": "America/Chicago",
+        "houston": "America/Chicago",
+        "dallas": "America/Chicago",
+        "austin": "America/Chicago",
+        "denver": "America/Denver",
+        "phoenix": "America/Phoenix",
+        "las vegas": "America/Los_Angeles",
+        "los angeles": "America/Los_Angeles",
+        "san francisco": "America/Los_Angeles",
+        "seattle": "America/Los_Angeles",
+        "portland": "America/Los_Angeles",
+        "san diego": "America/Los_Angeles",
+        "minneapolis": "America/Chicago",
+
+        # 🇨🇦 Canada
+        "toronto": "America/Toronto",
+        "vancouver": "America/Vancouver",
+        "montreal": "America/Toronto",
+        "calgary": "America/Edmonton",
+
+        # 🇬🇧 Europe
+        "london": "Europe/London",
+        "dublin": "Europe/Dublin",
+        "paris": "Europe/Paris",
+        "berlin": "Europe/Berlin",
+        "rome": "Europe/Rome",
+        "madrid": "Europe/Madrid",
+        "amsterdam": "Europe/Amsterdam",
+        "brussels": "Europe/Brussels",
+        "vienna": "Europe/Vienna",
+        "zurich": "Europe/Zurich",
+        "stockholm": "Europe/Stockholm",
+        "oslo": "Europe/Oslo",
+        "copenhagen": "Europe/Copenhagen",
+        "helsinki": "Europe/Helsinki",
+        "lisbon": "Europe/Lisbon",
+        "prague": "Europe/Prague",
+        "budapest": "Europe/Budapest",
+        "warsaw": "Europe/Warsaw",
+        "athens": "Europe/Athens",
+        "istanbul": "Europe/Istanbul",
+        "moscow": "Europe/Moscow",
+
+        # 🌏 Asia
+        "tokyo": "Asia/Tokyo",
+        "osaka": "Asia/Tokyo",
+        "seoul": "Asia/Seoul",
+        "beijing": "Asia/Shanghai",
+        "shanghai": "Asia/Shanghai",
+        "hong kong": "Asia/Hong_Kong",
+        "taipei": "Asia/Taipei",
+        "singapore": "Asia/Singapore",
+        "bangkok": "Asia/Bangkok",
+        "kuala lumpur": "Asia/Kuala_Lumpur",
+        "jakarta": "Asia/Jakarta",
+        "manila": "Asia/Manila",
+        "delhi": "Asia/Kolkata",
+        "mumbai": "Asia/Kolkata",
+        "bangalore": "Asia/Kolkata",
+        "karachi": "Asia/Karachi",
+        "dubai": "Asia/Dubai",
+        "abu dhabi": "Asia/Dubai",
+        "riyadh": "Asia/Riyadh",
+        "doha": "Asia/Qatar",
+        "tehran": "Asia/Tehran",
+        "jerusalem": "Asia/Jerusalem",
+
+        # 🌍 Africa
+        "cairo": "Africa/Cairo",
+        "lagos": "Africa/Lagos",
+        "nairobi": "Africa/Nairobi",
+        "johannesburg": "Africa/Johannesburg",
+        "cape town": "Africa/Johannesburg",
+        "casablanca": "Africa/Casablanca",
+        "addis ababa": "Africa/Addis_Ababa",
+
+        # 🌎 Latin America
+        "mexico city": "America/Mexico_City",
+        "guadalajara": "America/Mexico_City",
+        "buenos aires": "America/Argentina/Buenos_Aires",
+        "sao paulo": "America/Sao_Paulo",
+        "rio de janeiro": "America/Sao_Paulo",
+        "lima": "America/Lima",
+        "bogota": "America/Bogota",
+        "santiago": "America/Santiago",
+        "caracas": "America/Caracas",
+        "panama city": "America/Panama",
+
+        # 🌏 Oceania
+        "sydney": "Australia/Sydney",
+        "melbourne": "Australia/Melbourne",
+        "brisbane": "Australia/Brisbane",
+        "perth": "Australia/Perth",
+        "auckland": "Pacific/Auckland",
+        "wellington": "Pacific/Auckland",
+
+        # 🌐 Misc / global hubs
+        "honolulu": "Pacific/Honolulu",
+        "anchorage": "America/Anchorage",
+        "reykjavik": "Atlantic/Reykjavik",
+        "dover": "America/New_York",
+        "geneva": "Europe/Zurich",
+        }
+        tz = zoneinfo.ZoneInfo(CITY_TO_TZ[city_name.lower()])
+        now = datetime.now(tz).strftime("%z")
+        logger.info(
+            f"[Tool] get_time: {now} at {city_name}"
+        )
+        return now
+    except:
+        logger.warning("[Tool] get_time: Wrong city name!")
+        raise(ValueError("Wrong city name!"))
+
+
+@tool
+def currency_exchange(
+    base_currency: str,
+    target_currency: str,
+    base_currency_amount: float
+) -> str:
+    """
+    Get newest currency exchnage rate and calculate currency exchange!
+
+    Args:
+        base_currency: The currency use for exchange calculation (such as 'USD')
+        target_currency: The target currency for exchange
+        base_currency_amount: the amount of base currency
+
+    Returns:
+        JSON string with route info including distance, duration, and turn-by-turn steps
+    """
+    try:
+        url = f"https://api.frankfurter.app/latest?from={base_currency}&to{target_currency}"
+
+        response = requests.get(url)
+
+        data = response.json()
+
+        rate = data["rates"][target_currency]
+
+        result = rate * base_currency_amount
+        logger.info(
+            f"[Tool] currency_exchange: {result}"
+        )
+        return result
+    except:
+        logger.warning("[Tool] currency_exchange: Wrong currency abriviate!")
+        raise(ValueError("Wrong currency abriviate"))

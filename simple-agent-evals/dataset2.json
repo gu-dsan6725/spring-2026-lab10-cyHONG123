@@ -1,0 +1,41 @@
+[
+    {
+        "input": "I am on plane towards New York, when would i arrived at local time if there is 2 hour more flight?",
+        "expected_output": "Time extract from tool + 2 hours",
+        "expected_tools": ["get_time"],
+        "category": "search",
+        "difficulty": "simple"
+    },
+
+    {
+        "input": "I want to call my friend right now, he is at Tokyo. Which clock is it at there?",
+        "expected_output": "Time extracted",
+        "expected_tools": ["get_time"],
+        "category": "search",
+        "difficulty": "simple"
+    },
+
+    {
+        "input": "I have 1000 us dollar and i need to travel to japan, how many japan currency can i exchange with that?",
+        "expected_output": "approximately 1000*140",
+        "expected_tools": ["currency_exchange"],
+        "category": "search",
+        "difficulty": "simple"
+    },
+
+    {
+        "input": "I need 10000 euro, how many us dollar do i need to prepare for exchange?",
+        "expected_output": "approximately 10000/0.8",
+        "expected_tools": ["currency_exchange"],
+        "category": "search",
+        "difficulty": "simple"
+    },
+
+    {
+        "input": "I am planning a business trip from New York to Tokyo. How long is the flight route by driving to JFK first, what is the current time in Tokyo, what is the weather there, what is the USD to JPY exchange rate, and what are the top business hotels in Shinjuku?",
+        "expected_output": "Driving directions from Manhattan to JFK Airport with distance and time, the current local time in Tokyo with timezone info, current Tokyo weather with temperature, the USD to JPY exchange rate, and a list of recommended business hotels in the Shinjuku area of Tokyo.",
+        "expected_tools": ["get_directions", "get_time", "get_weather", "currency_exchange", "duckduckgo_search"],
+        "category": "multi_tool",
+        "difficulty": "hard"
+    }
+]

@@ -23,6 +23,8 @@ from tools import (
     duckduckgo_search,
     get_directions,
     get_weather,
+    get_time,
+    currency_exchange,
 )
 
 
@@ -126,7 +128,7 @@ def _create_agent() -> Agent:
     agent = Agent(
         system_prompt=system_prompt,
         model=model,
-        tools=[duckduckgo_search, get_weather, get_directions]
+        tools=[duckduckgo_search, get_weather, get_directions, get_time, currency_exchange]
     )
 
     logger.info("Agent created successfully")
